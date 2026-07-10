@@ -1,0 +1,53 @@
+name: Auto-Update Minecraft Data
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Run update script
+        run: node scripts/update-data.js
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "### Minecraft Data Updated" > /tmp/commit_message.txt
+            echo "" >> /tmp/commit_message.txt
+            echo "Changes detected:" >> /tmp/commit_message.txt
+            echo '```' >> /tmp/commit_message.txt
+            git diff --cached --stat >> /tmp/commit_message.txt
+            echo '```' >> /tmp/commit_message.txt
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -F /tmp/commit_message.txt
+          git push

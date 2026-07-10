@@ -126,9 +126,16 @@
                 e.preventDefault();
                 searchResultIndex = Math.max(searchResultIndex - 1, 0);
                 updateSearchSelection(items);
-            } else if (e.key === 'Enter' && searchResultIndex >= 0) {
+            } else if (e.key === 'Enter') {
                 e.preventDefault();
-                items[searchResultIndex]?.click();
+                if (searchResultIndex >= 0 && items[searchResultIndex]) {
+                    items[searchResultIndex]?.click();
+                } else {
+                    const query = this.value.trim();
+                    if (query.length >= 2) {
+                        showCompactResults(query);
+                    }
+                }
             } else if (e.key === 'Escape') {
                 resultsContainer.hidden = true;
                 searchResultIndex = -1;
@@ -261,6 +268,52 @@
                 }, 100);
                 break;
         }
+    }
+
+    function showCompactResults(query) {
+        const resultsContainer = document.getElementById('search-results');
+        const recipeResults = searchRecipes(query);
+        const mobResults = searchMobs(query);
+        const commandResults = searchCommands(query);
+        const itemResults = searchItems(query);
+
+        const total = recipeResults.length + mobResults.length + commandResults.length + itemResults.length;
+
+        if (total === 0) {
+            resultsContainer.innerHTML = '<div class="search-result-item" style="justify-content:center;color:var(--color-text-secondary);padding:16px;">No results found</div>';
+            resultsContainer.hidden = false;
+            return;
+        }
+
+        const parts = [];
+        if (recipeResults.length) parts.push(`${recipeResults.length} recipe${recipeResults.length !== 1 ? 's' : ''}`);
+        if (itemResults.length) parts.push(`${itemResults.length} item${itemResults.length !== 1 ? 's' : ''}`);
+        if (mobResults.length) parts.push(`${mobResults.length} mob${mobResults.length !== 1 ? 's' : ''}`);
+        if (commandResults.length) parts.push(`${commandResults.length} command${commandResults.length !== 1 ? 's' : ''}`);
+
+        let html = `<div class="search-compact-summary">
+            <strong>${total} result${total !== 1 ? 's' : ''}</strong> found for "${query}"<br>
+            <span class="search-compact-breakdown">${parts.join(' · ')}</span>
+        </div>`;
+
+        resultsContainer.innerHTML = html;
+        resultsContainer.hidden = false;
+        resultsContainer.querySelectorAll('.search-compact-summary')[0].addEventListener('click', function() {
+            resultsContainer.hidden = true;
+        });
+
+        if (recipeResults.length >= itemResults.length && recipeResults.length >= mobResults.length && recipeResults.length >= commandResults.length) {
+            switchTab('recipes');
+        } else if (itemResults.length >= mobResults.length && itemResults.length >= commandResults.length) {
+            switchTab('items');
+        } else if (mobResults.length >= commandResults.length) {
+            switchTab('mobs');
+        } else {
+            switchTab('commands');
+        }
+
+        const searchInput = document.getElementById('global-search');
+        searchInput.value = '';
     }
 
     function updateSearchSelection(items) {

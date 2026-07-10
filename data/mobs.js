@@ -546,8 +546,7 @@ const MOBS = [
         id: "warden", name: "Warden", category: "hostile", health: 500, xp: 5,
         spawns: ["deep_dark"],
         drops: [
-            { item: "sculk_catalyst", count: "1", chance: "100%", condition: "Always" },
-            { item: "echo_shard", count: "1", chance: "100%", condition: "Always" }
+            { item: "sculk_catalyst", count: "1", chance: "100%", condition: "Always" }
         ],
         added: "1.19"
     },
@@ -555,8 +554,7 @@ const MOBS = [
         id: "breeze", name: "Breeze", category: "hostile", health: 30, xp: 10,
         spawns: ["trial_chambers"],
         drops: [
-            { item: "breeze_rod", count: "1-2", chance: "100%", condition: "Always" },
-            { item: "wind_charge", count: "1-2", chance: "100%", condition: "Always" }
+            { item: "breeze_rod", count: "1-2", chance: "100%", condition: "Always" }
         ],
         added: "1.21"
     },
@@ -577,8 +575,7 @@ const MOBS = [
         spawns: ["the_end"],
         drops: [
             { item: "dragon_egg", count: "1", chance: "100%", condition: "First kill only" },
-            { item: "experience_orb", count: "12000", chance: "100%", condition: "Always" },
-            { item: "elytra", count: "1", chance: "100%", condition: "Found in End Ship" }
+            { item: "experience_orb", count: "12000", chance: "100%", condition: "Always" }
         ],
         added: "alpha-1.0.0"
     },
@@ -589,18 +586,6 @@ const MOBS = [
             { item: "nether_star", count: "1", chance: "100%", condition: "Always" }
         ],
         added: "1.4.2"
-    },
-    {
-        id: "elder_guardian", name: "Elder Guardian", category: "boss", health: 80, xp: 10,
-        spawns: ["ocean_monument"],
-        drops: [
-            { item: "prismarine_crystals", count: "0-2", chance: "100%", condition: "Always" },
-            { item: "cooked_cod", count: "0-1", chance: "100%", condition: "Always" },
-            { item: "prismarine_shard", count: "0-1", chance: "40%", condition: "With Looting III: up to 76%" },
-            { item: "sponge", count: "1", chance: "100%", condition: "Always" },
-            { item: "wet_sponge", count: "1", chance: "100%", condition: "First kill only" }
-        ],
-        added: "1.8"
     },
 
     // === UTILITY MOBS ===

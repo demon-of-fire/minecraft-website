@@ -102,7 +102,7 @@ const STRUCTURES = [
         location: "Found in Desert biomes.",
         loot: ["diamond", "emerald", "iron_ingot", "gold_ingot", "lapis_lazuli", "tnt"],
         tips: ["Careful of TNT trap under center", "Dig down in the center pattern", "Contains 4 treasure chests"],
-        added: "alpha-1.0.0"
+        added: "1.3.1"
     },
     {
         id: "jungle_temple", name: "Jungle Temple", dimension: "overworld", minDistance: 0, maxDistance: 99999,
@@ -110,7 +110,7 @@ const STRUCTURES = [
         location: "Found in Jungle biomes.",
         loot: ["diamond", "emerald", "iron_ingot", "gold_ingot", "name_tag"],
         tips: ["Solve the lever puzzle", "Watch out for arrow trap", "Hidden staircase on side"],
-        added: "alpha-1.0.0"
+        added: "1.3.1"
     },
     {
         id: "witch_hut", name: "Witch Hut", dimension: "overworld", minDistance: 0, maxDistance: 99999,
