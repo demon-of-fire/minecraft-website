@@ -1,0 +1,21 @@
+{
+    "name": "Minecraft Wiki",
+    "short_name": "MC Wiki",
+    "description": "Complete Minecraft crafting recipes, mob drops, commands, and reference guide for all versions. Fully accessible.",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#FAFAFA",
+    "theme_color": "#2E7D32",
+    "orientation": "any",
+    "categories": ["games", "education"],
+    "lang": "en",
+    "dir": "ltr",
+    "icons": [
+        {
+            "src": "./favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
